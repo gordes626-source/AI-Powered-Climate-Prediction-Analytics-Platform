@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Climate Prediction - Advanced Weather Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="globe-loader"></div>
+            <h2>Analyzing Climate Data...</h2>
+        </div>
+    </div>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-earth-americas"></i>
+                    <span>ClimatePredict</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#predictions">Predictions</a></li>
+                    <li><a href="#analytics">Analytics</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Predict Climate</span><br>
+                    <span class="typing-text">Change Tomorrow</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Advanced AI-powered climate prediction models providing accurate weather forecasts and environmental insights
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToSection('predictions')">
+                        <i class="fas fa-chart-line"></i> Get Predictions
+                    </button>
+                    <button class="btn-secondary" onclick="scrollToSection('analytics')">
+                        <i class="fas fa-analytics"></i> View Analytics
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="animated-globe">
+                    <div class="globe-particles"></div>
+                    <div class="globe-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="predictions" class="predictions-section">
+            <div class="container">
+                <h2 class="section-title">Climate Predictions</h2>
+                <div class="prediction-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" placeholder="Enter city or coordinates">
+                        </div>
+                        <div class="form-group">
+                            <label for="timeframe">Timeframe</label>
+                            <select id="timeframe">
+                                <option value="24h">Next 24 Hours</option>
+                                <option value="7d">Next 7 Days</option>
+                                <option value="30d">Next 30 Days</option>
+                                <option value="90d">Next 90 Days</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="parameters">Parameters</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" checked> Temperature</label>
+                                <label><input type="checkbox" checked> Precipitation</label>
+                                <label><input type="checkbox"> Wind Speed</label>
+                                <label><input type="checkbox"> Humidity</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-primary predict-btn" onclick="generatePrediction()">
+                        <i class="fas fa-magic"></i> Generate Prediction
+                    </button>
+                </div>
+
+                <div class="prediction-results" id="predictionResults" style="display: none;">
+                    <h3>Prediction Results</h3>
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-temperature-high"></i>
+                            </div>
+                            <h4>Temperature</h4>
+                            <div class="result-value" id="tempResult">--°C</div>
+                            <div class="result-trend" id="tempTrend">
+                                <i class="fas fa-arrow-up"></i> Rising
+                            </div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-cloud-rain"></i>
+                            </div>
+                            <h4>Precipitation</h4>
+                            <div class="result-value" id="precipResult">--mm</div>
+                            <div class="result-trend" id="precipTrend">
+                                <i class="fas fa-minus"></i> Stable
+                            </div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <h4>Wind Speed</h4>
+                            <div class="result-value" id="windResult">-- km/h</div>
+                            <div class="result-trend" id="windTrend">
+                                <i class="fas fa-arrow-down"></i> Decreasing
+                            </div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <h4>Humidity</h4>
+                            <div class="result-value" id="humidityResult">--%</div>
+                            <div class="result-trend" id="humidityTrend">
+                                <i class="fas fa-minus"></i> Stable
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analytics" class="analytics-section">
+            <div class="container">
+                <h2 class="section-title">Climate Analytics</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Global Temperature Trends</h3>
+                        <div class="chart-container">
+                            <canvas id="tempChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Carbon Emissions</h3>
+                        <div class="chart-container">
+                            <canvas id="carbonChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Extreme Weather Events</h3>
+                        <div class="chart-container">
+                            <canvas id="weatherChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Sea Level Rise</h3>
+                        <div class="chart-container">
+                            <canvas id="seaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title">About ClimatePredict</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            ClimatePredict uses advanced machine learning algorithms and historical climate data 
+                            to provide accurate weather forecasts and climate predictions. Our system analyzes 
+                            multiple data sources including satellite imagery, ocean temperatures, atmospheric 
+                            conditions, and historical weather patterns.
+                        </p>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-brain"></i>
+                                <h4>AI-Powered</h4>
+                                <p>Machine learning models for accurate predictions</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-database"></i>
+                                <h4>Big Data</h4>
+                                <p>Analysis of terabytes of climate data</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-globe"></i>
+                                <h4>Global Coverage</h4>
+                                <p>Predictions for any location worldwide</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="data-flow-animation">
+                            <div class="data-node"></div>
+                            <div class="data-node"></div>
+                            <div class="data-node"></div>
+                            <div class="data-connections"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ClimatePredict</h4>
+                    <p>Advanced climate prediction and analytics platform</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Data Sources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ClimatePredict. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
